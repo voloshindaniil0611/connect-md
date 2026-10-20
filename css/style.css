@@ -209,6 +209,25 @@ img { display: block; max-width: 100%; }
 }
 .is-on .tagline { visibility: visible; opacity: 1; translate: 0 0; transition-delay: .35s, .35s, 0s; }
 
+/* Плавное появление после нажатия кнопки питания.
+   Задержки отсчитываются от момента, когда сайт включился (класс is-on). */
+.particles { transition: opacity 1.6s ease; }
+.is-off .particles,
+.is-switching .particles { opacity: .35; }
+
+.powering-on.is-on .tagline { transition: none; visibility: visible; opacity: 1; translate: 0 0; }
+.powering-on.is-on .tagline > * { animation: rise-in 1s var(--ease-out) both; }
+.powering-on.is-on .tagline__main { animation-delay: .1s; }
+.powering-on.is-on .tagline__sub { animation-delay: .3s; }
+.powering-on.is-on .tagline__actions { animation-delay: .5s; }
+.powering-on.is-on .site-header { transition: opacity 1s .8s, translate 1s .8s var(--ease-out), background .3s; }
+.powering-on.is-on .tapes,
+.powering-on.is-on .content,
+.powering-on.is-on .site-footer { animation: fade-up 1.2s 1s var(--ease-out) both; }
+
+@keyframes rise-in { from { opacity: 0; translate: 0 18px; filter: blur(6px); } }
+@keyframes fade-up { from { opacity: 0; translate: 0 40px; } }
+
 /* Повторный заход: всё уже включено, без анимаций */
 .intro-seen .site-header,
 .intro-seen .tagline,
@@ -216,6 +235,7 @@ img { display: block; max-width: 100%; }
 .intro-seen .hint,
 .intro-seen .skip { transition: none !important; animation: none !important; }
 .intro-seen .hint, .intro-seen .skip, .intro-seen .power { display: none; }
+.intro-seen .particles { transition: none; }
 
 /* ---------- Общие блоки ---------- */
 .content {
