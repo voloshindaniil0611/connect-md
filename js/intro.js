@@ -63,7 +63,7 @@ function switchOn() {
   if (!body.classList.contains('is-off')) return;
   playClick();
   body.classList.remove('is-off');
-  // powering-on — включили кнопкой: всё остальное появляется плавно, по очереди
+  // powering-on — включили кнопкой: всё остальное плавно проявляется одновременно
   body.classList.add('is-switching', 'powering-on');
   setTimeout(turnOn, SWITCH_MS);
 }

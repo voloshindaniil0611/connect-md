@@ -211,15 +211,16 @@ img { display: block; max-width: 100%; }
 
 /* Плавное появление после нажатия кнопки питания:
    всё остальное проявляется одновременно и медленно, без этапов. */
-.particles { transition: opacity 2.2s ease; }
+:root { --reveal: 3.5s cubic-bezier(.45, 0, .25, 1); }
+.particles { transition: opacity var(--reveal); }
 .is-off .particles,
 .is-switching .particles { opacity: .35; }
 
-.powering-on.is-on .tagline { transition: none; visibility: visible; opacity: 1; translate: 0 0; animation: fade-in 2.2s ease both; }
-.powering-on.is-on .site-header { translate: 0 0; transition: opacity 2.2s ease, background .3s; }
+.powering-on.is-on .tagline { transition: none; visibility: visible; opacity: 1; translate: 0 0; animation: fade-in var(--reveal) both; }
+.powering-on.is-on .site-header { translate: 0 0; transition: opacity var(--reveal), background .3s; }
 .powering-on.is-on .tapes,
 .powering-on.is-on .content,
-.powering-on.is-on .site-footer { animation: fade-in 2.2s ease both; }
+.powering-on.is-on .site-footer { animation: fade-in var(--reveal) both; }
 
 @keyframes fade-in { from { opacity: 0; } }
 
@@ -785,4 +786,11 @@ div.map iframe { display: block; width: 100%; height: 100%; border: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
   html { scroll-behavior: auto; }
+  /* Плавное проявление — не движение, его оставляем и при выключенных анимациях */
+  .powering-on.is-on .tagline,
+  .powering-on.is-on .tapes,
+  .powering-on.is-on .content,
+  .powering-on.is-on .site-footer { animation-duration: 3.5s !important; }
+  .powering-on.is-on .site-header,
+  .powering-on .particles { transition-duration: 3.5s !important; }
 }
