@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://voloshindaniil0611.github.io/connect-md/sitemap.xml

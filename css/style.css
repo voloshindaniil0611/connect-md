@@ -31,6 +31,17 @@ body:not(.is-on) .tapes,
 body:not(.is-on) .site-footer { display: none; }
 
 a { color: inherit; text-decoration: none; }
+
+/* Текст только для поисковиков и экранных читалок */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 img { display: block; max-width: 100%; }
 
