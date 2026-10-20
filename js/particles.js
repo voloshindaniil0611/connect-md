@@ -1,10 +1,13 @@
-// Частицы на фоне первого экрана — по мотивам компонента Particles из Magic UI
+// Частицы на фоне всего сайта — по мотивам компонента Particles из Magic UI
 // (magicui.design/docs/components/particles), переписано на чистом JS.
 // Точки медленно плывут, у краёв затухают и чуть тянутся за курсором.
 
 (function () {
-  const canvas = document.querySelector('.particles');
-  if (!canvas) return;
+  // Один холст на весь экран, закреплён и лежит позади всех блоков (стили — .particles в style.css)
+  const canvas = document.createElement('canvas');
+  canvas.className = 'particles';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.prepend(canvas);
   const ctx = canvas.getContext('2d');
   // Если в системе выключены анимации — частицы всё равно плывут, но втрое медленнее
   const SPEED = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0.33 : 1;
@@ -20,9 +23,8 @@
   const mouse = { x: 0, y: 0 };
 
   function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    w = rect.width;
-    h = rect.height;
+    w = innerWidth;
+    h = innerHeight;
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = w + 'px';
@@ -75,10 +77,8 @@
   }
 
   addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    if (e.clientY > rect.bottom) return;
-    mouse.x = e.clientX - rect.left - w / 2;
-    mouse.y = e.clientY - rect.top - h / 2;
+    mouse.x = e.clientX - w / 2;
+    mouse.y = e.clientY - h / 2;
   }, { passive: true });
 
   let resizeTimer;
